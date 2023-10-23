@@ -12,6 +12,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Users />} />
+          <Route path="/:id/places" element={<h1>u1 places</h1>} />
           <Route path="/places/new" element={<NewPlace />} />
           <Route path="*" element={<h1>404: Not Found</h1>} />
         </Routes>
