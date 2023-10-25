@@ -1,7 +1,7 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import PlaceList from "../components/PlaceList";
-import { useParams } from "react-router-dom";
 
 const SEED_PLACES = [
   {
@@ -34,7 +34,7 @@ const SEED_PLACES = [
 
 const UserPlaces = () => {
   const userId = useParams().id;
-  const userPlaces = SEED_PLACES.filter(place => place.creator === userId);
+  const userPlaces = SEED_PLACES.filter((place) => place.creator === userId);
 
   return <PlaceList items={userPlaces} />;
 };

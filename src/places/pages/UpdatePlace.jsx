@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import { Button, Input } from "../../shared/components/FormElements";
+import { Card } from "../../shared/components/UIElements";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
@@ -61,19 +62,21 @@ const UpdatePlace = () => {
   const identifiedPlace = SEED_PLACES.find((p) => p.id === placeId);
 
   useEffect(() => {
-    setFormData(
-      {
-        title: {
-          value: identifiedPlace.title,
-          isValid: true,
+    if (identifiedPlace) {
+      setFormData(
+        {
+          title: {
+            value: identifiedPlace.title,
+            isValid: true,
+          },
+          description: {
+            value: identifiedPlace.description,
+            isValid: true,
+          },
         },
-        description: {
-          value: identifiedPlace.description,
-          isValid: true,
-        },
-      },
-      true
-    );
+        true
+      );
+    }
 
     setIsLoading(false);
   }, [setFormData, identifiedPlace]);
@@ -85,17 +88,17 @@ const UpdatePlace = () => {
 
   if (!identifiedPlace) {
     return (
-      <div className="center">
+      <Card>
         <h2>Could not find place!</h2>
-      </div>
+      </Card>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="center">
+      <Card>
         <h2>Loading...</h2>
-      </div>
+      </Card>
     );
   }
 

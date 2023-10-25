@@ -8,9 +8,19 @@ import Modal from "../../shared/components/UIElements/Modal";
 
 const PlaceItem = (props) => {
   const [showMap, setShowMap] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const closeMapHandler = () => {
     setShowMap(false);
+  };
+
+  const cancelDeletelHandler = () => {
+    setShowConfirmModal(false);
+  };
+
+  const confirmDeleteHandler = () => {
+    setShowConfirmModal(false);
+    console.log("DELETING...");
   };
 
   return (
@@ -24,8 +34,26 @@ const PlaceItem = (props) => {
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
-          <Map center={props.coordinates} zoom={16}/>
+          <Map center={props.coordinates} zoom={16} />
         </div>
+      </Modal>
+      <Modal
+        show={showConfirmModal}
+        onClose={cancelDeletelHandler}
+        headerClass='center'
+        header="Are you sure?"
+        footerClass="place-item__modal-actions"
+        footer={
+          <>
+            <Button inverse onClick={cancelDeletelHandler}>CANCEL</Button>
+            <Button danger onClick={confirmDeleteHandler}>DELETE</Button>
+          </>
+        }
+      >
+        <p className="center">
+          Are you sure you want to delete this place? Once deleted it cannot be
+          recovered.
+        </p>
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
@@ -42,7 +70,7 @@ const PlaceItem = (props) => {
               VIEW ON MAP
             </Button>
             <Button to={`/places/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick={() => setShowConfirmModal(true)}>DELETE</Button>
           </div>
         </Card>
       </li>
